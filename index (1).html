@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sabor da Casa – Restaurante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#F1F5EE;--ink:#10231D;--muted:#4B5F57;--line:#C3D1C7;--card:#FFFFFF;
+  --accent:#C93A2B;--hero-bg:#0F3D33;--hero-ink:#F6EFD2;--butter:#F6D86B;
+  --head:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0C1A15;--ink:#EAF1EC;--muted:#9DB2A8;--line:#25403A;--card:#12261F;--accent:#FF7A66;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0C1A15;--ink:#EAF1EC;--muted:#9DB2A8;--line:#25403A;--card:#12261F;--accent:#FF7A66;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.6 var(--body)}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.hero{background:var(--hero-bg);color:var(--hero-ink)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.brand{font:800 1.25rem/1 var(--head);letter-spacing:.01em}
+.btn{display:inline-block;padding:.8rem 1.35rem;border-radius:999px;font:700 1rem/1 var(--body);text-decoration:none;border:2px solid var(--butter);background:var(--butter);color:#10231D}
+.btn.ghost{background:transparent;color:var(--hero-ink)}
+.hero h1{font:800 clamp(2.6rem,10vw,5.6rem)/.98 var(--head);letter-spacing:-.025em;margin:2.5rem 0 1.2rem;max-width:12ch}
+.hero p{max-width:34rem;font-size:1.15rem;margin:0 0 2rem;color:var(--hero-ink);opacity:.92}
+.ctas{display:flex;flex-wrap:wrap;gap:.75rem;padding-bottom:4rem}
+section{padding:3.5rem 0}
+h2{font:800 clamp(1.8rem,5vw,2.6rem)/1.1 var(--head);letter-spacing:-.015em;margin:0 0 1.5rem}
+.tabs{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:1.5rem}
+.tabs button{flex:none;font:700 .95rem/1 var(--body);padding:.7rem 1.1rem;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.item{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+.item h3{margin:0;font:700 1.1rem/1.3 var(--body)}
+.item .price{font:800 1.1rem/1.3 var(--head);color:var(--accent);white-space:nowrap}
+.item p{grid-column:1;margin:0;color:var(--muted);font-size:.98rem}
+#list{animation:fade .25s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){#list{animation:none}}
+.info{background:var(--card);border-top:1px solid var(--line)}
+.cols{display:grid;gap:2.5rem}
+@media (min-width:44rem){.cols{grid-template-columns:1fr 1fr}}
+dl{margin:0}
+.row{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
+dt{font-weight:700}dd{margin:0;color:var(--muted);text-align:right}
+.info .btn{margin-top:1.25rem;background:var(--hero-bg);border-color:var(--hero-bg);color:var(--hero-ink)}
+footer{padding:2rem 0;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="top"><span class="brand" id="nome"></span><a class="btn" id="reservar1" href="#">Reservar mesa</a></div>
+    <h1 id="slogan"></h1>
+    <p id="desc"></p>
+    <div class="ctas"><a class="btn" id="reservar2" href="#">Reservar pelo WhatsApp</a><a class="btn ghost" href="#cardapio">Ver cardápio</a></div>
+  </div>
+</header>
+
+<main>
+  <section id="cardapio">
+    <div class="wrap">
+      <h2>Cardápio</h2>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div id="list" role="tabpanel"></div>
+    </div>
+  </section>
+
+  <section class="info" id="visite">
+    <div class="wrap cols">
+      <div>
+        <h2>Horários</h2>
+        <dl id="horarios"></dl>
+      </div>
+      <div>
+        <h2>Onde estamos</h2>
+        <p id="endereco"></p>
+        <a class="btn" id="reservar3" href="#">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap" id="rodape"></div></footer>
+
+<script>
+/* EDITE AQUI: tudo o que muda de restaurante para restaurante */
+var C = {
+  nome: "Sabor da Casa",
+  slogan: "Comida de verdade, mesa cheia.",
+  desc: "Pratos feitos na hora, com ingrediente fresco e tempero de casa. Venha almoçar, jantar ou pedir para levar.",
+  whats: "5567991005386", /* DDI + DDD + número, só dígitos */
+  mensagem: "Olá! Gostaria de reservar uma mesa.",
+  endereco: "Rua Exemplo, 123 – Centro, Sua Cidade",
+  horarios: [["Terça a sexta","11h30 às 15h e 18h às 23h"],["Sábado","11h30 às 23h30"],["Domingo","11h30 às 17h"],["Segunda","Fechado"]],
+  menu: {
+    "Entradas": [["Bolinho de mandioca","Recheado com carne seca, acompanha molho de pimenta.",24],["Salada da casa","Folhas, tomate, cenoura e molho de limão.",19],["Caldo do dia","Pergunte ao garçom qual é o de hoje.",16]],
+    "Pratos": [["Feijoada completa","Feijão preto, carnes, arroz, couve, farofa e laranja.",48],["Filé com fritas","Filé grelhado, fritas crocantes e salada.",54],["Moqueca de peixe","Peixe do dia, leite de coco, arroz e pirão.",62],["Prato vegetariano","Legumes grelhados, arroz integral e feijão.",36]],
+    "Sobremesas": [["Pudim de leite","Calda de caramelo feita na casa.",14],["Mousse de maracujá","Cremoso, com um toque de limão.",14]],
+    "Bebidas": [["Suco natural","Laranja, limão, maracujá ou abacaxi.",10],["Refrigerante lata","Várias opções.",7],["Água com ou sem gás","Garrafa 500 ml.",5]]
+  }
+};
+
+function $(id){return document.getElementById(id)}
+function zap(){return "https://wa.me/"+C.whats+"?text="+encodeURIComponent(C.mensagem)}
+function txt(el,t){el.textContent=t}
+
+document.title = C.nome + " – Restaurante";
+txt($("nome"),C.nome); txt($("slogan"),C.slogan); txt($("desc"),C.desc); txt($("endereco"),C.endereco);
+["reservar1","reservar2","reservar3"].forEach(function(id){$(id).href=zap()});
+txt($("rodape"),"© "+new Date().getFullYear()+" "+C.nome+". Todos os direitos reservados.");
+
+C.horarios.forEach(function(h){
+  var r=document.createElement("div"); r.className="row";
+  var dt=document.createElement("dt"); dt.textContent=h[0];
+  var dd=document.createElement("dd"); dd.textContent=h[1];
+  r.appendChild(dt); r.appendChild(dd); $("horarios").appendChild(r);
+});
+
+var cats=Object.keys(C.menu), tabs=$("tabs"), list=$("list");
+function show(cat){
+  Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute("aria-selected",b.dataset.cat===cat)});
+  list.style.animation="none"; void list.offsetWidth; list.style.animation="";
+  list.innerHTML="";
+  C.menu[cat].forEach(function(p){
+    var d=document.createElement("div"); d.className="item";
+    var h=document.createElement("h3"); h.textContent=p[0];
+    var pr=document.createElement("span"); pr.className="price"; pr.textContent="R$ "+p[2];
+    var ds=document.createElement("p"); ds.textContent=p[1];
+    d.appendChild(h); d.appendChild(pr); d.appendChild(ds); list.appendChild(d);
+  });
+}
+cats.forEach(function(c){
+  var b=document.createElement("button"); b.type="button"; b.setAttribute("role","tab");
+  b.dataset.cat=c; b.textContent=c; b.onclick=function(){show(c)}; tabs.appendChild(b);
+});
+show(cats[0]);
+</script>
+</body>
+</html>
